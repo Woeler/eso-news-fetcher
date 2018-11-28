@@ -11,9 +11,9 @@ abstract class VendorFetcher implements FetcherInterface
      *
      * @return array
      */
-    protected function makeRequest(string $url): array
+    protected function makeRequest(): array
     {
-        $data = json_decode(file_get_contents($url), true);
+        $data = json_decode(file_get_contents($this->getFeedUrl()), true);
 
         return $data ?? [];
     }

@@ -16,7 +16,7 @@ class LuxuryFurnisherFetcher extends VendorFetcher
     public function fetchAll(bool $withOgTags = false): array
     {
         $articles = [];
-        foreach ($this->makeRequest($this->getFeedUrl()) as $item) {
+        foreach ($this->makeRequest() as $item) {
             $title       = html_entity_decode($item['title']['rendered']);
             $link        = $item['link'];
             $pubDate     = $this->timeToUtc($item['date']);
