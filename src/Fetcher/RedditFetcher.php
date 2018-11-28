@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Woeler\EsoNewsFetcher\Fetcher;
 
+use Woeler\EsoNewsFetcher\Exception\InvalidResponseException;
+
 abstract class RedditFetcher implements FetcherInterface
 {
     /**
@@ -36,9 +38,17 @@ abstract class RedditFetcher implements FetcherInterface
 
     /**
      * @return array
+     *
+     * @throws InvalidResponseException
      */
     protected function makeRequest(): array
     {
-        return json_decode(file_get_contents($this->getFeedUrl()), true) ?? [];
+        $content = json_decode(file_get_contents($this->getFeedUrl()), true);
+
+        if (empty($content)) {
+            throw new InvalidResponseException();
+        }
+
+        return $content;
     }
 }

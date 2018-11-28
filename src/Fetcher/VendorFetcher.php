@@ -4,18 +4,26 @@ declare(strict_types=1);
 
 namespace Woeler\EsoNewsFetcher\Fetcher;
 
+use Woeler\EsoNewsFetcher\Exception\InvalidResponseException;
+
 abstract class VendorFetcher implements FetcherInterface
 {
     /**
      * @param string $url
      *
      * @return array
+     *
+     * @throws InvalidResponseException
      */
     protected function makeRequest(): array
     {
-        $data = json_decode(file_get_contents($this->getFeedUrl()), true);
+        $content = json_decode(file_get_contents($this->getFeedUrl()), true);
 
-        return $data ?? [];
+        if (empty($content)) {
+            throw new InvalidResponseException();
+        }
+
+        return $content;
     }
 
     /**
