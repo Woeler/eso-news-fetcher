@@ -1,0 +1,22 @@
+{
+    "name": "woeler/eso-news-fetcher",
+    "description": "A library to fetch news from ESO related websites.",
+    "type": "library",
+    "license": "GLP3-or-later",
+    "authors": [
+        {
+            "name": "Woeler",
+            "email": "woeler@woeler.eu"
+        }
+    ],
+    "require": {
+      "ext-dom": "*",
+        "ext-libxml": "*",
+        "rugaard/meta-scraper": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Woeler\\EsoNewsFetcher\\": "src/"
+        }
+    }
+}
