@@ -10,6 +10,7 @@ class PatchNotesArticle extends AbstractArticle
         'ZOS_GinaBruno',
         'ZOS_KaiSchober',
         'ZOS_JessicaFolsom',
+        'ZOS_LouisEvrard',
     ];
 
     /**

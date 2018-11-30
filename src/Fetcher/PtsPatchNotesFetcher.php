@@ -9,6 +9,11 @@ use Woeler\EsoNewsFetcher\Article\PatchNotesArticle;
 class PtsPatchNotesFetcher extends RssFeedFetcher
 {
     /**
+     * @var string
+     */
+    protected $checkString = 'PTS Patch Notes';
+
+    /**
      * @param bool $withOgTags
      *
      * @return array
@@ -23,7 +28,7 @@ class PtsPatchNotesFetcher extends RssFeedFetcher
 
         foreach ($articleArray as $item) {
             if (\in_array($item['creator'], PatchNotesArticle::ALLOWED_AUTHORS, true)) {
-                if (false === strpos($item['title'], 'PTS Patch Notes')) {
+                if (false === strpos($item['title'], $this->checkString)) {
                     continue;
                 }
 
