@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Woeler\EsoNewsFetcher\Article;
 
-use Rugaard\MetaScraper\Scraper;
+use DOMDocument;
+use DOMXPath;
+use GuzzleHttp\Client;
 
 abstract class AbstractArticle implements ArticleInterface
 {
@@ -92,39 +94,29 @@ abstract class AbstractArticle implements ArticleInterface
     }
 
     /**
-     * @throws \Rugaard\MetaScraper\Exceptions\InvalidUrlException
-     * @throws \Rugaard\MetaScraper\Exceptions\RequestFailedException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function fetchOgMetaTags()
     {
-        $scraper = new Scraper();
-        $scraper->load($this->link);
-        try {
-            foreach ($scraper->openGraph() as $key => $meta) {
-                if ('image' === $key) {
-                    if (is_array($meta)) {
-                        $this->image = $meta[0]->getUrl();
-                    } else {
-                        $this->image = $meta->getUrl();
-                    }
-                } elseif ('description' === $key) {
-                    $this->description = $meta;
-                }
+        $client  = new Client(['base_uri' => $this->link]);
+        $content = $client->request('GET');
+        $body    =  (string) $content->getBody();
+        libxml_use_internal_errors(true);
+        $doc = new DomDocument();
+        $doc->loadHTML($body);
+        $xpath = new DOMXPath($doc);
+        $query = '//*/meta[starts-with(@property, \'og:\')]';
+        $metas = $xpath->query($query);
+        foreach ($metas as $meta) {
+            if (empty($this->image) && 'og:image' === $meta->getAttribute('property')) {
+                $this->image = $meta->getAttribute('content');
             }
-            if (empty($this->image)) {
-                foreach ($scraper->twitter() as $key => $meta) {
-                    if ('image' === $key) {
-                        if (is_array($meta)) {
-                            $this->image = $meta[0]->getUrl();
-                        } else {
-                            $this->image = $meta->getUrl();
-                        }
-                    } elseif ('description' === $key) {
-                        $this->description = $meta;
-                    }
-                }
+            if (empty($this->description) && 'og:description' === $meta->getAttribute('property')) {
+                $this->description = $meta->getAttribute('content');
             }
-        } catch (\Exception $e) {
+            if (!empty($this->image) && !empty($this->description)) {
+                break;
+            }
         }
     }
 }

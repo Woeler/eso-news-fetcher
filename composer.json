@@ -12,8 +12,8 @@
     "require": {
       "ext-dom": "*",
         "ext-libxml": "*",
-        "rugaard/meta-scraper": "dev-master",
-        "ext-json": "*"
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "autoload": {
         "psr-4": {
