@@ -15,4 +15,6 @@ interface ArticleInterface
     public function getDescription(): string;
 
     public function getTimestamp(): \DateTime;
+
+    public function fetchOgMetaTags();
 }
