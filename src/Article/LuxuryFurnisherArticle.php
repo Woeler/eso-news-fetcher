@@ -21,7 +21,7 @@ class LuxuryFurnisherArticle extends AbstractArticle
      */
     public function getImage(): string
     {
-        return 'http://benevolentbowd.ca/wp-content/uploads/2017/07/luxury-vendor-672x372.jpg';
+        return 'https://projects.woeler.eu/img/luxury-furnisher.jpg';
     }
 
     /**
