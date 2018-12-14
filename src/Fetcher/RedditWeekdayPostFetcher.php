@@ -39,7 +39,7 @@ class RedditWeekdayPostFetcher extends RedditFetcher
                 continue;
             }
 
-            $dt = new \DateTime('@'.$post['data']['created'], new \DateTimeZone('UTC'));
+            $dt = new \DateTime('@'.$post['data']['created_utc'], new \DateTimeZone('UTC'));
 
             $article    = new RedditArticle($post['data']['title'], $post['data']['url'], $dt);
             $articles[] = $article;
