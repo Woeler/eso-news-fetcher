@@ -1,4 +1,4 @@
-# Eso News Fetcher
+# Eso News Fetcher [![Build Status](https://travis-ci.org/Woeler/eso-news-fetcher.svg?branch=master)](https://travis-ci.org/Woeler/eso-news-fetcher)
 A PHP library that fetches news about The Elder Scrolls Online in an OOP way.
 ## Installation
 ```sh
