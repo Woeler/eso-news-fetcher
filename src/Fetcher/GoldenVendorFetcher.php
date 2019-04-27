@@ -38,7 +38,7 @@ class GoldenVendorFetcher extends VendorFetcher
             foreach ($items as $vendorItem) {
                 $description .= '* '.$vendorItem.PHP_EOL;
             }
-            
+
             $description = str_replace('* >What is offered this week?The Golden vendor is a special vendor located in one of base camps for each faction in Cyrodiil that only appears on the weekend to sell monster sets that are obtained in the various group dungeons around Tamriel.', '', $description);
 
             $article = new GoldenVendorArticle($title, $link, $pubDate, '', $description);
