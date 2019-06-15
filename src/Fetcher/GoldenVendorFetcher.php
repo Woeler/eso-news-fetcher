@@ -54,6 +54,6 @@ class GoldenVendorFetcher extends VendorFetcher
      */
     protected function getFeedUrl(): string
     {
-        return 'http://benevolentbowd.ca/wp-json/wp/v2/posts?categories=262';
+        return 'http://benevolentbowd.ca/wp-json/wp/v2/posts';
     }
 }
