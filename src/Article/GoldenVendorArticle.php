@@ -21,7 +21,7 @@ class GoldenVendorArticle extends AbstractArticle
      */
     public function getImage(): string
     {
-        return 'https://projects.woeler.eu/img/golden-vendor.jpg';
+        return 'https://projects.woeler.tech/img/golden-vendor.jpg';
     }
 
     /**
