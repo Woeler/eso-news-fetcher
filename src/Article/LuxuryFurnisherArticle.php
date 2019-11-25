@@ -21,7 +21,7 @@ class LuxuryFurnisherArticle extends AbstractArticle
      */
     public function getImage(): string
     {
-        return 'https://projects.woeler.eu/img/luxury-furnisher.jpg';
+        return 'https://projects.woeler.tech/img/luxury-furnisher.jpg';
     }
 
     /**
