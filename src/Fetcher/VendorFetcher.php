@@ -11,8 +11,6 @@ abstract class VendorFetcher implements FetcherInterface
     /**
      * @param string $url
      *
-     * @return array
-     *
      * @throws InvalidResponseException
      */
     protected function makeRequest(): array
@@ -27,10 +25,6 @@ abstract class VendorFetcher implements FetcherInterface
     }
 
     /**
-     * @param string $pubDate
-     *
-     * @return \DateTime
-     *
      * @throws \Exception
      */
     protected function timeToUtc(string $pubDate): \DateTime
@@ -41,11 +35,6 @@ abstract class VendorFetcher implements FetcherInterface
         return $dt;
     }
 
-    /**
-     * @param string $content
-     *
-     * @return array
-     */
     protected function buildItemsArray(string $content): array
     {
         $splitted = substr($content,
@@ -66,8 +55,5 @@ abstract class VendorFetcher implements FetcherInterface
         return $exploded;
     }
 
-    /**
-     * @return string
-     */
     abstract protected function getFeedUrl(): string;
 }

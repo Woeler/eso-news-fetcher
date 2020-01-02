@@ -6,9 +6,6 @@ namespace Woeler\EsoNewsFetcher\Fetcher;
 
 class FrenchNewsFetcher extends NewsFetcher
 {
-    /**
-     * @return string
-     */
     public function getFeedUrl(): string
     {
         return 'http://files.elderscrollsonline.com/rss/fr/eso-rss.xml';

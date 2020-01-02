@@ -18,25 +18,16 @@ class PatchNotesArticle extends AbstractArticle
      */
     protected $author;
 
-    /**
-     * @param string $author
-     */
     public function setAuthor(string $author)
     {
         $this->author = $author;
     }
 
-    /**
-     * @return string
-     */
     public function getAuthor(): string
     {
         return $this->author;
     }
 
-    /**
-     * @return bool
-     */
     public function isFormAllowedAuthor(): bool
     {
         return \in_array($this->author, self::ALLOWED_AUTHORS, true);

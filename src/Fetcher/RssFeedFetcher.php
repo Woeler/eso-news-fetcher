@@ -13,16 +13,8 @@ abstract class RssFeedFetcher implements FetcherInterface
      */
     protected $rssTags = ['title', 'link', 'pubDate', 'creator'];
 
-    /**
-     * @return string
-     */
     abstract protected function getFeedUrl(): string;
 
-    /**
-     * @param string $feed
-     *
-     * @return array
-     */
     protected function rssToArray(string $feed): array
     {
         $doc          = new DOMdocument();
@@ -45,10 +37,6 @@ abstract class RssFeedFetcher implements FetcherInterface
     }
 
     /**
-     * @param string $pubDate
-     *
-     * @return \DateTime
-     *
      * @throws \Exception
      */
     protected function timeToUtc(string $pubDate): \DateTime

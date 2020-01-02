@@ -14,10 +14,6 @@ class PtsPatchNotesFetcher extends RssFeedFetcher
     protected $checkString = 'PTS Patch Notes';
 
     /**
-     * @param bool $withOgTags
-     *
-     * @return array
-     *
      * @throws \Rugaard\MetaScraper\Exceptions\InvalidUrlException
      * @throws \Rugaard\MetaScraper\Exceptions\RequestFailedException
      */
@@ -45,17 +41,11 @@ class PtsPatchNotesFetcher extends RssFeedFetcher
         return $articles;
     }
 
-    /**
-     * @return string
-     */
     protected function getContext(): string
     {
         return 'pts';
     }
 
-    /**
-     * @return string
-     */
     protected function getFeedUrl(): string
     {
         return 'https://forums.elderscrollsonline.com/en/categories/pts/feed.rss';

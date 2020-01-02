@@ -20,10 +20,6 @@ class RedditWeekdayPostFetcher extends RedditFetcher
     ];
 
     /**
-     * @param bool $withOgTags
-     *
-     * @return array
-     *
      * @throws \Exception
      */
     public function fetchAll(bool $withOgTags = false): array

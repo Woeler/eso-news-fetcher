@@ -9,10 +9,6 @@ use Woeler\EsoNewsFetcher\Article\PatchNotesArticle;
 class LivePatchNotesFetcher extends RssFeedFetcher
 {
     /**
-     * @param bool $withOgTags
-     *
-     * @return array
-     *
      * @throws \Rugaard\MetaScraper\Exceptions\InvalidUrlException
      * @throws \Rugaard\MetaScraper\Exceptions\RequestFailedException
      */
@@ -36,17 +32,11 @@ class LivePatchNotesFetcher extends RssFeedFetcher
         return $articles;
     }
 
-    /**
-     * @return string
-     */
     protected function getContext(): string
     {
         return 'live';
     }
 
-    /**
-     * @return string
-     */
     protected function getFeedUrl(): string
     {
         return 'https://forums.elderscrollsonline.com/en/categories/patch-notes/feed.rss';

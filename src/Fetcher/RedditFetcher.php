@@ -18,27 +18,17 @@ abstract class RedditFetcher implements FetcherInterface
      */
     protected $allowedUsers = ['The_Dwemer_Automaton'];
 
-    /**
-     * @return string
-     */
     protected function getFeedUrl(): string
     {
         return 'https://www.reddit.com/r/'.$this->subreddit.'/new.json';
     }
 
-    /**
-     * @param array $post
-     *
-     * @return bool
-     */
     protected function hasAllowedAuthor(array $post): bool
     {
         return \in_array($post['data']['author'], $this->allowedUsers, true);
     }
 
     /**
-     * @return array
-     *
      * @throws InvalidResponseException
      */
     protected function makeRequest(): array

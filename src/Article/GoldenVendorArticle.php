@@ -16,25 +16,16 @@ class GoldenVendorArticle extends AbstractArticle
         return;
     }
 
-    /**
-     * @return string
-     */
     public function getImage(): string
     {
         return 'https://projects.woeler.tech/img/golden-vendor.jpg';
     }
 
-    /**
-     * @return array
-     */
     public function getItems(): array
     {
         return $this->items;
     }
 
-    /**
-     * @param array $items
-     */
     public function setItems(array $items)
     {
         $this->items = $items;

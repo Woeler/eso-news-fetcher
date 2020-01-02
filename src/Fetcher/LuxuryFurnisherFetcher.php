@@ -14,10 +14,6 @@ class LuxuryFurnisherFetcher extends VendorFetcher
     protected $search = 'ESO LUXURY FURNITURE VENDOR ITEMS';
 
     /**
-     * @param bool $withOgTags
-     *
-     * @return array
-     *
      * @throws \Woeler\EsoNewsFetcher\Exception\InvalidResponseException
      */
     public function fetchAll(bool $withOgTags = false): array
@@ -47,9 +43,6 @@ class LuxuryFurnisherFetcher extends VendorFetcher
         return $articles;
     }
 
-    /**
-     * @return string
-     */
     protected function getFeedUrl(): string
     {
         return 'http://benevolentbowd.ca/wp-json/wp/v2/posts';

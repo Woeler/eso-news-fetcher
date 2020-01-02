@@ -7,8 +7,6 @@ use Woeler\EsoNewsFetcher\Article\ServiceAnnouncementArticle;
 class ServiceAnnouncementFetcher implements FetcherInterface
 {
     /**
-     * @param bool $withOgTags
-     *
      * @return array|ServiceAnnouncementArticle[]
      */
     public function fetchAll(bool $withOgTags = false): array
@@ -20,7 +18,7 @@ class ServiceAnnouncementFetcher implements FetcherInterface
         $return = [];
         foreach ($data as $announcement) {
             $split = explode('</p>', $announcement);
-            if (empty($split[0]) || empty($split[1])) {
+            if (empty($split[0]) || empty($split[1]) || false === strpos($split[0], 'UTC')) {
                 continue;
             }
             $return[] = new ServiceAnnouncementArticle(

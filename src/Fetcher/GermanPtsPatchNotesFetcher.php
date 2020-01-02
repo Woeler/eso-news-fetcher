@@ -11,9 +11,6 @@ class GermanPtsPatchNotesFetcher extends PtsPatchNotesFetcher
      */
     protected $checkString = 'PTS-Patchnotizen';
 
-    /**
-     * @return string
-     */
     public function getFeedUrl(): string
     {
         return 'https://forums.elderscrollsonline.com/de/categories/%C3%B6ffentlicher-testserver/feed.rss';

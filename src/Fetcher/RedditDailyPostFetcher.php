@@ -14,10 +14,6 @@ class RedditDailyPostFetcher extends RedditFetcher
     protected $identifierString = '[Daily]';
 
     /**
-     * @param bool $withOgTags
-     *
-     * @return array
-     *
      * @throws \Exception
      */
     public function fetchAll(bool $withOgTags = false): array

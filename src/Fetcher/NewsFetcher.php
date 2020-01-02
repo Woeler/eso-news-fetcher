@@ -9,10 +9,6 @@ use Woeler\EsoNewsFetcher\Article\NewsArticle;
 class NewsFetcher extends RssFeedFetcher
 {
     /**
-     * @param bool $withOgTags
-     *
-     * @return array
-     *
      * @throws \Rugaard\MetaScraper\Exceptions\InvalidUrlException
      * @throws \Rugaard\MetaScraper\Exceptions\RequestFailedException
      */
@@ -34,9 +30,6 @@ class NewsFetcher extends RssFeedFetcher
         return $articles;
     }
 
-    /**
-     * @return string
-     */
     protected function getFeedUrl(): string
     {
         return 'http://files.elderscrollsonline.com/rss/en-us/eso-rss.xml';

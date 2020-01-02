@@ -11,9 +11,6 @@ class FrenchPtsPatchNotesFetcher extends PtsPatchNotesFetcher
      */
     protected $checkString = 'Notes de version PTS';
 
-    /**
-     * @return string
-     */
     public function getFeedUrl(): string
     {
         return 'https://forums.elderscrollsonline.com/fr/categories/pts-serveur-de-test-public/feed.rss';
