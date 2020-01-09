@@ -5,6 +5,7 @@ $finder = PhpCsFixer\Finder::create()
 return PhpCsFixer\Config::create()
     ->setRules([
         '@Symfony' => true,
+        'no_superfluous_phpdoc_tags' => false,
         'binary_operator_spaces' => [
             'align_double_arrow' => true,
             'align_equals' => true

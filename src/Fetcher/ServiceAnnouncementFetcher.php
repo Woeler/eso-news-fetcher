@@ -2,16 +2,16 @@
 
 namespace Woeler\EsoNewsFetcher\Fetcher;
 
-use Woeler\EsoNewsFetcher\Article\ServiceAnnouncementArticle;
+use Woeler\EsoNewsFetcher\Article\EsoArticle;
 
-class ServiceAnnouncementFetcher implements FetcherInterface
+class ServiceAnnouncementFetcher extends AbstractFetcher
 {
     /**
-     * @return array|ServiceAnnouncementArticle[]
+     * @return array|EsoArticle[]
      */
-    public function fetchAll(bool $withOgTags = false): array
+    public function fetchAll(): array
     {
-        $data   = file_get_contents('https://help.elderscrollsonline.com/app/answers/detail/a_id/4320');
+        $data   = file_get_contents($this->getFeedUrl());
         $data   = explode('<!-- ENTER ESO SERVICE ALERTS BELOW THIS LINE -->', $data)[1];
         $data   = explode('<div', $data)[0];
         $data   =  explode('<hr />', $data);
@@ -21,7 +21,7 @@ class ServiceAnnouncementFetcher implements FetcherInterface
             if (empty($split[0]) || empty($split[1]) || false === strpos($split[0], 'UTC')) {
                 continue;
             }
-            $return[] = new ServiceAnnouncementArticle(
+            $return[] = new EsoArticle(
                 'ESO Service Announcement',
                 'https://help.elderscrollsonline.com/app/answers/detail/a_id/4320',
                 $this->parseTime($split[0]),
@@ -31,6 +31,11 @@ class ServiceAnnouncementFetcher implements FetcherInterface
         }
 
         return $return;
+    }
+
+    protected function getFeedUrl(): string
+    {
+        return 'https://help.elderscrollsonline.com/app/answers/detail/a_id/4320';
     }
 
     private function parseTime(string $timeString): \DateTime

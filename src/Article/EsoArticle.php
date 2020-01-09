@@ -1,14 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Woeler\EsoNewsFetcher\Article;
 
+use DateTime;
 use DOMDocument;
 use DOMXPath;
 use GuzzleHttp\Client;
 
-abstract class AbstractArticle implements ArticleInterface
+class EsoArticle
 {
     /**
      * @var string
@@ -31,14 +30,20 @@ abstract class AbstractArticle implements ArticleInterface
     protected $description;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     protected $timestamp;
 
     /**
      * AbstractArticle constructor.
+     *
+     * @param string   $title
+     * @param string   $link
+     * @param DateTime $timestamp
+     * @param string   $image
+     * @param string   $description
      */
-    public function __construct(string $title, string $link, \DateTime $timestamp, string $image = '', string $description = '')
+    public function __construct(string $title, string $link, DateTime $timestamp, string $image = '', string $description = '')
     {
         $this->title       = str_replace('&amp;', 'and', $title);
         $this->link        = $link;
@@ -67,7 +72,7 @@ abstract class AbstractArticle implements ArticleInterface
         return $this->description;
     }
 
-    public function getTimestamp(): \DateTime
+    public function getTimestamp(): DateTime
     {
         return $this->timestamp;
     }
@@ -75,7 +80,7 @@ abstract class AbstractArticle implements ArticleInterface
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function fetchOgMetaTags()
+    public function fetchOgMetaTags(): void
     {
         $client  = new Client(['base_uri' => $this->link]);
         $content = $client->request('GET');
@@ -91,7 +96,7 @@ abstract class AbstractArticle implements ArticleInterface
                 $this->image = $meta->getAttribute('content');
             }
             if (empty($this->description) && 'og:description' === $meta->getAttribute('property')) {
-                $this->description = $meta->getAttribute('content');
+                $this->description = str_replace('(Image) ', '', $meta->getAttribute('content'));
             }
             if (!empty($this->image) && !empty($this->description)) {
                 break;

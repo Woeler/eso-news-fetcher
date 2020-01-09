@@ -1,13 +1,14 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use Woeler\EsoNewsFetcher\Article\EsoArticle;
-use Woeler\EsoNewsFetcher\Fetcher\VendorFetcher;
+use Woeler\EsoNewsFetcher\Fetcher\RedditFetcher;
 
-class VendorTest extends \PHPUnit\Framework\TestCase
+class RedditTest extends TestCase
 {
-    public function testFetchGoldenVendor()
+    public function testFetchDaily()
     {
-        $fetcher  = new VendorFetcher(VendorFetcher::TYPE_GOLDEN_VENDOR);
+        $fetcher  = new RedditFetcher(RedditFetcher::TYPE_DAILY);
         $articles = $fetcher->fetchAll();
 
         /** @var EsoArticle $article */
@@ -21,9 +22,9 @@ class VendorTest extends \PHPUnit\Framework\TestCase
         $this->assertNotNull($article->getLink());
     }
 
-    public function testFetchLuxuryFurnisher()
+    public function testFetchWeekday()
     {
-        $fetcher  = new VendorFetcher(VendorFetcher::TYPE_LUXURY_FURNISHER);
+        $fetcher  = new RedditFetcher(RedditFetcher::TYPE_WEEKDAY);
         $articles = $fetcher->fetchAll();
 
         /** @var EsoArticle $article */

@@ -1,11 +1,14 @@
 <?php
 
+use Woeler\EsoNewsFetcher\Article\EsoArticle;
+use Woeler\EsoNewsFetcher\Fetcher\PatchNotesFetcher;
+
 class PtsPatchNotesTest extends \PHPUnit\Framework\TestCase
 {
     public function testFetch()
     {
-        $fetcher  = new \Woeler\EsoNewsFetcher\Fetcher\PtsPatchNotesFetcher();
-        $articles = $fetcher->fetchAll(false);
+        $fetcher  = new PatchNotesFetcher(PatchNotesFetcher::LANG_EN, PatchNotesFetcher::CONTEXT_PTS);
+        $articles = $fetcher->fetchAll();
 
         if (0 === count($articles)) {
             $this->assertIsArray($articles);
@@ -13,7 +16,7 @@ class PtsPatchNotesTest extends \PHPUnit\Framework\TestCase
             return;
         }
 
-        /** @var \Woeler\EsoNewsFetcher\Article\PatchNotesArticle $article */
+        /** @var EsoArticle $article */
         $article = $articles[0];
         $article->fetchOgMetaTags();
 
@@ -27,14 +30,14 @@ class PtsPatchNotesTest extends \PHPUnit\Framework\TestCase
 
     public function testFetchGerman()
     {
-        $fetcher  = new \Woeler\EsoNewsFetcher\Fetcher\GermanPtsPatchNotesFetcher();
-        $articles = $fetcher->fetchAll(false);
+        $fetcher  = new PatchNotesFetcher(PatchNotesFetcher::LANG_DE, PatchNotesFetcher::CONTEXT_PTS);
+        $articles = $fetcher->fetchAll();
 
         if (0 === count($articles)) {
             return;
         }
 
-        /** @var \Woeler\EsoNewsFetcher\Article\PatchNotesArticle $article */
+        /** @var EsoArticle $article */
         $article = $articles[0];
         $article->fetchOgMetaTags();
 
@@ -47,14 +50,14 @@ class PtsPatchNotesTest extends \PHPUnit\Framework\TestCase
 
     public function testFetchFrench()
     {
-        $fetcher  = new \Woeler\EsoNewsFetcher\Fetcher\FrenchPtsPatchNotesFetcher();
-        $articles = $fetcher->fetchAll(false);
+        $fetcher  = new PatchNotesFetcher(PatchNotesFetcher::LANG_FR, PatchNotesFetcher::CONTEXT_PTS);
+        $articles = $fetcher->fetchAll();
 
         if (0 === count($articles)) {
             return;
         }
 
-        /** @var \Woeler\EsoNewsFetcher\Article\PatchNotesArticle $article */
+        /** @var EsoArticle $article */
         $article = $articles[0];
         $article->fetchOgMetaTags();
 
