@@ -9,7 +9,7 @@ use Woeler\EsoNewsFetcher\Article\EsoArticle;
 class NewsFetcher extends AbstractFetcher
 {
     public const LANG_EN_US = 'en-us';
-    public const LANG_EN_GB = 'en-us';
+    public const LANG_EN_GB = 'en-gb';
     public const LANG_DE    = 'de';
     public const LANG_FR    = 'fr';
 
