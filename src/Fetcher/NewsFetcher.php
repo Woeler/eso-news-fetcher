@@ -35,7 +35,7 @@ class NewsFetcher extends AbstractFetcher
         foreach ($articleArray as $item) {
             $article = new EsoArticle(
                 $item['content']['title']['main'],
-                'https://elderscrollsonline.com'.$item['content']['url'],
+                'https://elderscrollsonline.com/'.$this->lang.'/news/post/'.$item['metadata']['parent_id'],
                 new \DateTime('@'.$item['metadata']['dates']['start_date']),
                 $item['content']['images']['lead_image'],
                 $item['content']['intro']['text']
