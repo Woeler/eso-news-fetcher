@@ -33,11 +33,19 @@ class ServiceAnnouncementFetcher extends AbstractFetcher
         return $return;
     }
 
+    /**
+     * @return string
+     */
     protected function getFeedUrl(): string
     {
         return 'https://help.elderscrollsonline.com/app/answers/detail/a_id/4320';
     }
 
+    /**
+     * @param string $timeString
+     *
+     * @return \DateTime
+     */
     private function parseTime(string $timeString): \DateTime
     {
         $timeString = explode('(', strip_tags($timeString))[0];

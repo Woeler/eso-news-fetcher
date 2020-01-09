@@ -21,6 +21,9 @@ class VendorFetcher extends AbstractFetcher
         $this->type = $type;
     }
 
+    /**
+     * @return array|EsoArticle[]
+     */
     public function fetchAll(): array
     {
         $articles = [];
@@ -69,6 +72,11 @@ class VendorFetcher extends AbstractFetcher
         return $dt;
     }
 
+    /**
+     * @param string $content
+     *
+     * @return array
+     */
     protected function buildItemsArray(string $content): array
     {
         $splitted = substr($content,
@@ -89,11 +97,17 @@ class VendorFetcher extends AbstractFetcher
         return $exploded;
     }
 
+    /**
+     * @return string
+     */
     protected function getFeedUrl(): string
     {
         return 'http://benevolentbowd.ca/wp-json/wp/v2/posts';
     }
 
+    /**
+     * @return string
+     */
     private function getSearch(): string
     {
         return self::TYPE_GOLDEN_VENDOR === $this->type ? 'ESO GOLDEN VENDOR ITEMS' : 'ESO LUXURY FURNITURE VENDOR ITEMS';

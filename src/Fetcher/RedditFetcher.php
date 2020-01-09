@@ -46,6 +46,9 @@ class RedditFetcher extends AbstractFetcher
         $this->type = $type;
     }
 
+    /**
+     * @return array
+     */
     public function fetchAll(): array
     {
         $reddit   = $this->getJsonFeedAsArray();
@@ -68,16 +71,29 @@ class RedditFetcher extends AbstractFetcher
         return $articles;
     }
 
+    /**
+     * @return string
+     */
     protected function getFeedUrl(): string
     {
         return 'https://www.reddit.com/r/'.$this->subreddit.'/hot.json';
     }
 
+    /**
+     * @param array $post
+     *
+     * @return bool
+     */
     private function hasAllowedAuthor(array $post): bool
     {
         return \in_array($post['data']['author'], $this->allowedUsers, true);
     }
 
+    /**
+     * @param string $title
+     *
+     * @return bool
+     */
     private function shouldBeFetched(string $title): bool
     {
         if (self::TYPE_DAILY === $this->type) {

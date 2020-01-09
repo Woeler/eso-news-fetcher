@@ -76,6 +76,11 @@ class PatchNotesFetcher extends AbstractFetcher
         return $articles;
     }
 
+    /**
+     * @param string $title
+     *
+     * @return bool
+     */
     protected function shouldProcess(string $title): bool
     {
         if (self::CONTEXT_PTS === $this->context) {
@@ -93,6 +98,9 @@ class PatchNotesFetcher extends AbstractFetcher
         return true;
     }
 
+    /**
+     * @return string
+     */
     protected function getFeedUrl(): string
     {
         return self::FEEDS[$this->lang][$this->context];

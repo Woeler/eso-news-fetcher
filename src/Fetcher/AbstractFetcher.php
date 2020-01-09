@@ -21,6 +21,9 @@ abstract class AbstractFetcher
         $this->client = new Client();
     }
 
+    /**
+     * @return array
+     */
     protected function getJsonFeedAsArray(): array
     {
         $data = $this->client->request(
@@ -41,6 +44,9 @@ abstract class AbstractFetcher
         return json_decode((string) $data->getBody(), true);
     }
 
+    /**
+     * @return array
+     */
     protected function getRssFeedAsArray(): array
     {
         $doc          = new DOMdocument();
