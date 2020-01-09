@@ -1,13 +1,16 @@
 <?php
 
+use Woeler\EsoNewsFetcher\Article\EsoArticle;
+use Woeler\EsoNewsFetcher\Fetcher\PatchNotesFetcher;
+
 class PatchNotesTest extends \PHPUnit\Framework\TestCase
 {
     public function testFetch()
     {
-        $fetcher  = new \Woeler\EsoNewsFetcher\Fetcher\LivePatchNotesFetcher();
-        $articles = $fetcher->fetchAll(false);
+        $fetcher  = new PatchNotesFetcher();
+        $articles = $fetcher->fetchAll();
 
-        /** @var \Woeler\EsoNewsFetcher\Article\PatchNotesArticle $article */
+        /** @var EsoArticle $article */
         $article = $articles[0];
         $article->fetchOgMetaTags();
 
@@ -21,10 +24,10 @@ class PatchNotesTest extends \PHPUnit\Framework\TestCase
 
     public function testFetchGerman()
     {
-        $fetcher  = new \Woeler\EsoNewsFetcher\Fetcher\GermanLivePatchNotesFetcher();
-        $articles = $fetcher->fetchAll(false);
+        $fetcher  = new PatchNotesFetcher(PatchNotesFetcher::LANG_DE);
+        $articles = $fetcher->fetchAll();
 
-        /** @var \Woeler\EsoNewsFetcher\Article\PatchNotesArticle $article */
+        /** @var EsoArticle $article */
         $article = $articles[0];
         $article->fetchOgMetaTags();
 
@@ -37,10 +40,10 @@ class PatchNotesTest extends \PHPUnit\Framework\TestCase
 
     public function testFetchFrench()
     {
-        $fetcher  = new \Woeler\EsoNewsFetcher\Fetcher\FrenchLivePatchNotesFetcher();
-        $articles = $fetcher->fetchAll(false);
+        $fetcher  = new PatchNotesFetcher(PatchNotesFetcher::LANG_FR);
+        $articles = $fetcher->fetchAll();
 
-        /** @var \Woeler\EsoNewsFetcher\Article\PatchNotesArticle $article */
+        /** @var EsoArticle $article */
         $article = $articles[0];
         $article->fetchOgMetaTags();
 

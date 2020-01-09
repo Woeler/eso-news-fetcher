@@ -4,25 +4,42 @@ declare(strict_types=1);
 
 namespace Woeler\EsoNewsFetcher\Fetcher;
 
-use Woeler\EsoNewsFetcher\Article\NewsArticle;
+use Woeler\EsoNewsFetcher\Article\EsoArticle;
 
-class NewsFetcher extends RssFeedFetcher
+class NewsFetcher extends AbstractFetcher
 {
+    public const LANG_EN_US = 'en-us';
+    public const LANG_EN_GB = 'en-us';
+    public const LANG_DE    = 'de';
+    public const LANG_FR    = 'fr';
+
     /**
-     * @throws \Rugaard\MetaScraper\Exceptions\InvalidUrlException
-     * @throws \Rugaard\MetaScraper\Exceptions\RequestFailedException
+     * @var string
      */
-    public function fetchAll(bool $withOgTags = false): array
+    private $lang;
+
+    public function __construct(string $lang = self::LANG_EN_US)
     {
-        $articleArray = $this->rssToArray($this->getFeedUrl());
+        parent::__construct();
+        $this->lang = $lang;
+    }
+
+    /**
+     * @return array|EsoArticle[]
+     */
+    public function fetchAll(): array
+    {
         $articles     = [];
+        $articleArray = $this->getJsonFeedAsArray();
 
         foreach ($articleArray as $item) {
-            $article = new NewsArticle($item['title'], $item['link'], $this->timeToUtc($item['pubDate']));
-
-            if ($withOgTags) {
-                $article->fetchOgMetaTags();
-            }
+            $article = new EsoArticle(
+                $item['content']['title']['main'],
+                'https://elderscrollsonline.com'.$item['content']['url'],
+                new \DateTime('@'.$item['metadata']['dates']['start_date']),
+                $item['content']['images']['lead_image'],
+                $item['content']['intro']['text']
+                );
 
             $articles[] = $article;
         }
@@ -30,8 +47,11 @@ class NewsFetcher extends RssFeedFetcher
         return $articles;
     }
 
+    /**
+     * @return string
+     */
     protected function getFeedUrl(): string
     {
-        return 'http://files.elderscrollsonline.com/rss/en-us/eso-rss.xml';
+        return 'https://www.elderscrollsonline.com/'.$this->lang.'/news/post/list';
     }
 }

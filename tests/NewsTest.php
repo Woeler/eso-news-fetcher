@@ -1,13 +1,16 @@
 <?php
 
+use Woeler\EsoNewsFetcher\Article\EsoArticle;
+use Woeler\EsoNewsFetcher\Fetcher\NewsFetcher;
+
 class NewsTest extends \PHPUnit\Framework\TestCase
 {
     public function testFetch()
     {
-        $fetcher  = new \Woeler\EsoNewsFetcher\Fetcher\NewsFetcher();
-        $articles = $fetcher->fetchAll(false);
+        $fetcher  = new NewsFetcher();
+        $articles = $fetcher->fetchAll();
 
-        /** @var \Woeler\EsoNewsFetcher\Article\NewsArticle $article */
+        /** @var EsoArticle $article */
         $article = $articles[0];
 
         $this->assertTrue(count($articles) > 0);
@@ -20,12 +23,11 @@ class NewsTest extends \PHPUnit\Framework\TestCase
 
     public function testFetchGerman()
     {
-        $fetcher  = new \Woeler\EsoNewsFetcher\Fetcher\GermanNewsFetcher();
-        $articles = $fetcher->fetchAll(false);
+        $fetcher  = new NewsFetcher(NewsFetcher::LANG_DE);
+        $articles = $fetcher->fetchAll();
 
-        /** @var \Woeler\EsoNewsFetcher\Article\NewsArticle $article */
+        /** @var EsoArticle $article */
         $article = $articles[0];
-        $article->fetchOgMetaTags();
 
         $this->assertTrue(count($articles) > 0);
         $this->assertNotNull($article->getTitle());
@@ -37,12 +39,11 @@ class NewsTest extends \PHPUnit\Framework\TestCase
 
     public function testFetchFrench()
     {
-        $fetcher  = new \Woeler\EsoNewsFetcher\Fetcher\FrenchNewsFetcher();
-        $articles = $fetcher->fetchAll(false);
+        $fetcher  = new NewsFetcher(NewsFetcher::LANG_FR);
+        $articles = $fetcher->fetchAll();
 
-        /** @var \Woeler\EsoNewsFetcher\Article\NewsArticle $article */
+        /** @var EsoArticle $article */
         $article = $articles[0];
-        $article->fetchOgMetaTags();
 
         $this->assertTrue(count($articles) > 0);
         $this->assertNotNull($article->getTitle());
@@ -54,12 +55,11 @@ class NewsTest extends \PHPUnit\Framework\TestCase
 
     public function testFetchEnGb()
     {
-        $fetcher  = new \Woeler\EsoNewsFetcher\Fetcher\EnGbNewsFetcher();
-        $articles = $fetcher->fetchAll(false);
+        $fetcher  = new NewsFetcher(NewsFetcher::LANG_EN_GB);
+        $articles = $fetcher->fetchAll();
 
-        /** @var \Woeler\EsoNewsFetcher\Article\NewsArticle $article */
+        /** @var EsoArticle $article */
         $article = $articles[0];
-        $article->fetchOgMetaTags();
 
         $this->assertTrue(count($articles) > 0);
         $this->assertNotNull($article->getTitle());

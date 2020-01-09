@@ -3,6 +3,7 @@ language: php
 php:
   - 7.2
   - 7.3
+  - 7.4
 
 cache:
   directories:
@@ -24,5 +25,5 @@ script:
   - bin/phpunit --bootstrap vendor/autoload.php --configuration phpunit.xml --fail-on-warning
 
   # Check if the code standards weren't broken.
-  # Run it only on PHP 7.2 which should be the fastest. No need to run it for all PHP versions
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then bin/php-cs-fixer fix -v --dry-run --diff; fi
+  # Run it only on PHP 7.4 which should be the fastest. No need to run it for all PHP versions
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.4" ]]; then bin/php-cs-fixer fix -v --dry-run --diff; fi

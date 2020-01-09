@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Woeler\EsoNewsFetcher\Fetcher;
 
-use Woeler\EsoNewsFetcher\Exception\InvalidResponseException;
+use Woeler\EsoNewsFetcher\Article\EsoArticle;
 
-abstract class RedditFetcher implements FetcherInterface
+class RedditFetcher extends AbstractFetcher
 {
+    public const TYPE_DAILY   = 'daily';
+    public const TYPE_WEEKDAY = 'weekday';
+
     /**
      * @var string
      */
@@ -17,28 +20,86 @@ abstract class RedditFetcher implements FetcherInterface
      * @var array
      */
     protected $allowedUsers = ['The_Dwemer_Automaton'];
+    /**
+     * @var array
+     */
+    protected $reddit_titles = [
+        'Trendy Tuesday - Post your ESO outfits and homes!',
+        'Workshop Wednesday - Give Crafting Tips, Offer Services, Help Your Fellow Crafters!',
+        'Theorycraft Thursday - Discuss Builds, Skills, Strategies, and More!',
+        'Guild Fair Friday - Advertise your guild, Find a guild!',
+        'Mages Guild Monday - Share Your ESO Knowledge, Ask Questions, Get Info If You\'re New!',
+    ];
+    /**
+     * @var string
+     */
+    private $type;
 
-    protected function getFeedUrl(): string
+    /**
+     * RedditFetcher constructor.
+     *
+     * @param string $type
+     */
+    public function __construct(string $type = self::TYPE_DAILY)
     {
-        return 'https://www.reddit.com/r/'.$this->subreddit.'/new.json';
+        parent::__construct();
+        $this->type = $type;
     }
 
-    protected function hasAllowedAuthor(array $post): bool
+    /**
+     * @return array
+     */
+    public function fetchAll(): array
+    {
+        $reddit   = $this->getJsonFeedAsArray();
+        $articles = [];
+
+        foreach ($reddit['data']['children'] as $post) {
+            if (!$this->hasAllowedAuthor($post)) {
+                continue;
+            }
+            if (!$this->shouldBeFetched($post['data']['title'])) {
+                continue;
+            }
+
+            $dt = new \DateTime('@'.$post['data']['created_utc'], new \DateTimeZone('UTC'));
+
+            $article    = new EsoArticle($post['data']['title'], $post['data']['url'], $dt, 'https://b.thumbs.redditmedia.com/ibUroRDpWpTUomoibvA3NlAgsJW0SWHpG0PaN00XOFk.png');
+            $articles[] = $article;
+        }
+
+        return $articles;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFeedUrl(): string
+    {
+        return 'https://www.reddit.com/r/'.$this->subreddit.'/hot.json';
+    }
+
+    /**
+     * @param array $post
+     *
+     * @return bool
+     */
+    private function hasAllowedAuthor(array $post): bool
     {
         return \in_array($post['data']['author'], $this->allowedUsers, true);
     }
 
     /**
-     * @throws InvalidResponseException
+     * @param string $title
+     *
+     * @return bool
      */
-    protected function makeRequest(): array
+    private function shouldBeFetched(string $title): bool
     {
-        $content = json_decode(file_get_contents($this->getFeedUrl()), true);
-
-        if (empty($content)) {
-            throw new InvalidResponseException();
+        if (self::TYPE_DAILY === $this->type) {
+            return false !== strpos($title, '[Daily]');
         }
 
-        return $content;
+        return in_array($title, $this->reddit_titles, true);
     }
 }
