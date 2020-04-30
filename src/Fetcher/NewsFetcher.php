@@ -12,6 +12,7 @@ class NewsFetcher extends AbstractFetcher
     public const LANG_EN_GB = 'en-gb';
     public const LANG_DE    = 'de';
     public const LANG_FR    = 'fr';
+    public const LANG_RU    = 'ru';
 
     /**
      * @var string
