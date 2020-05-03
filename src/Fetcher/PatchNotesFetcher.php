@@ -11,6 +11,7 @@ class PatchNotesFetcher extends AbstractFetcher
     public const LANG_EN      = 'en';
     public const LANG_DE      = 'de';
     public const LANG_FR      = 'fr';
+    public const LANG_RU      = 'ru';
     public const CONTEXT_LIVE = 'live';
     public const CONTEXT_PTS  = 'pts';
 
@@ -26,6 +27,10 @@ class PatchNotesFetcher extends AbstractFetcher
         self::LANG_FR => [
             self::CONTEXT_LIVE => 'https://forums.elderscrollsonline.com/fr/categories/notes-de-version/feed.rss',
             self::CONTEXT_PTS  => 'https://forums.elderscrollsonline.com/fr/categories/pts-serveur-de-test-public/feed.rss',
+        ],
+        self::LANG_RU => [
+            self::CONTEXT_LIVE => 'https://forums.elderscrollsonline.com/ru/categories/patch-notes-r/feed.rss',
+            self::CONTEXT_PTS  => 'https://forums.elderscrollsonline.com/ru/categories/%E2%80%A2%09public-test-server-russian/feed.xml',
         ],
     ];
 
@@ -93,6 +98,12 @@ class PatchNotesFetcher extends AbstractFetcher
             if (self::LANG_FR === $this->lang) {
                 return false !== strpos($title, 'Notes de version PTS');
             }
+            if (self::LANG_RU === $this->lang) {
+                // ToDo: Find russian translation
+                return false !== strpos($title, 'Notes de version PTS');
+            }
+
+            return false;
         }
 
         return true;

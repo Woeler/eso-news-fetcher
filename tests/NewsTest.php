@@ -68,4 +68,20 @@ class NewsTest extends \PHPUnit\Framework\TestCase
         $this->assertNotNull($article->getDescription());
         $this->assertNotNull($article->getLink());
     }
+
+    public function testFetchRussian()
+    {
+        $fetcher  = new NewsFetcher(NewsFetcher::LANG_RU);
+        $articles = $fetcher->fetchAll();
+
+        /** @var EsoArticle $article */
+        $article = $articles[0];
+
+        $this->assertTrue(count($articles) > 0);
+        $this->assertNotNull($article->getTitle());
+        $this->assertNotNull($article->getTimestamp());
+        $this->assertNotNull($article->getImage());
+        $this->assertNotNull($article->getDescription());
+        $this->assertNotNull($article->getLink());
+    }
 }
