@@ -1,0 +1,33 @@
+name: CI
+
+on: [push]
+
+jobs:
+  ci:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions:
+          - '7.2'
+          - '7.3'
+          - '7.4'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: shivammathur/setup-php@v1
+        with:
+          php-version: ${{ matrix.php-versions }}
+          coverage: pcov
+
+      - name: Composer Install dependencies
+        run: composer install --no-progress --no-suggest --no-interaction
+
+      - name: PHP CGL
+        run: php bin/php-cs-fixer fix --config .php_cs --dry-run --diff
+
+      - name: Tests
+        run: composer test
