@@ -53,4 +53,20 @@ class PatchNotesTest extends \PHPUnit\Framework\TestCase
         $this->assertNotNull($article->getDescription());
         $this->assertNotNull($article->getLink());
     }
+
+    public function testFetchRussian()
+    {
+        $fetcher  = new PatchNotesFetcher(PatchNotesFetcher::LANG_RU);
+        $articles = $fetcher->fetchAll();
+
+        /** @var EsoArticle $article */
+        $article = $articles[0];
+        $article->fetchOgMetaTags();
+
+        $this->assertTrue(count($articles) > 0);
+        $this->assertNotNull($article->getTitle());
+        $this->assertNotNull($article->getTimestamp());
+        $this->assertNotNull($article->getDescription());
+        $this->assertNotNull($article->getLink());
+    }
 }

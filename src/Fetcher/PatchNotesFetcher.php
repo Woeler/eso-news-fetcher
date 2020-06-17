@@ -39,6 +39,7 @@ class PatchNotesFetcher extends AbstractFetcher
         'ZOS_KaiSchober',
         'ZOS_JessicaFolsom',
         'ZOS_LouisEvrard',
+        'ZOS_Valeriya',
     ];
 
     /**
@@ -90,17 +91,16 @@ class PatchNotesFetcher extends AbstractFetcher
     {
         if (self::CONTEXT_PTS === $this->context) {
             if (self::LANG_EN === $this->lang) {
-                return false !== strpos($title, 'PTS Patch Notes');
+                return false !== mb_stripos($title, 'PTS Patch Notes');
             }
             if (self::LANG_DE === $this->lang) {
-                return false !== strpos($title, 'PTS-Patchnotizen');
+                return false !== mb_stripos($title, 'PTS-Patchnotizen');
             }
             if (self::LANG_FR === $this->lang) {
-                return false !== strpos($title, 'Notes de version PTS');
+                return false !== mb_stripos($title, 'Notes de version PTS');
             }
             if (self::LANG_RU === $this->lang) {
-                // ToDo: Find russian translation
-                return false !== strpos($title, 'Notes de version PTS');
+                return false !== mb_stripos($title, 'публичного тестового сервера') && false !== mb_stripos($title, 'Описание обновления');
             }
 
             return false;

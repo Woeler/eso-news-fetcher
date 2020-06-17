@@ -27,5 +27,13 @@
     },
     "config": {
         "bin-dir": "bin"
+    },
+    "scripts": {
+        "cgl": [
+            "php-cs-fixer fix --config .php_cs"
+        ],
+        "test": [
+            "phpunit -c phpunit.xml"
+        ]
     }
 }
