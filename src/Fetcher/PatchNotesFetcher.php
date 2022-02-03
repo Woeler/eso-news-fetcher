@@ -42,23 +42,11 @@ class PatchNotesFetcher extends AbstractFetcher
         'ZOS_Valeriya',
     ];
 
-    /**
-     * @var string
-     */
-    private $lang;
-    /**
-     * @var string
-     */
-    private $context;
-
     public function __construct(
-        string $lang = self::LANG_EN,
-        string $context = self::CONTEXT_LIVE
+        private string $lang = self::LANG_EN,
+        private string $context = self::CONTEXT_LIVE
     ) {
         parent::__construct();
-
-        $this->lang    = $lang;
-        $this->context = $context;
     }
 
     /**

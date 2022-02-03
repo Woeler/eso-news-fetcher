@@ -7,23 +7,14 @@ use GuzzleHttp\Client;
 
 abstract class AbstractFetcher
 {
-    /**
-     * @var Client
-     */
-    protected $client;
-    /**
-     * @var array
-     */
-    protected $rssTags = ['title', 'link', 'pubDate', 'creator'];
+    protected Client $client;
+    protected array $rssTags = ['title', 'link', 'pubDate', 'creator'];
 
     public function __construct()
     {
         $this->client = new Client();
     }
 
-    /**
-     * @return array
-     */
     protected function getJsonFeedAsArray(): array
     {
         $data = $this->client->request(
@@ -41,12 +32,9 @@ abstract class AbstractFetcher
             ]
         );
 
-        return json_decode((string) $data->getBody(), true);
+        return json_decode((string) $data->getBody(), true, 512, JSON_THROW_ON_ERROR);
     }
 
-    /**
-     * @return array
-     */
     protected function getRssFeedAsArray(): array
     {
         $doc          = new DOMdocument();

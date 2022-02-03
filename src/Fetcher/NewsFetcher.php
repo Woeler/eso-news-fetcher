@@ -13,16 +13,11 @@ class NewsFetcher extends AbstractFetcher
     public const LANG_DE    = 'de';
     public const LANG_FR    = 'fr';
     public const LANG_RU    = 'ru';
+    public const LANG_ES    = 'es';
 
-    /**
-     * @var string
-     */
-    private $lang;
-
-    public function __construct(string $lang = self::LANG_EN_US)
+    public function __construct(private string $lang = self::LANG_EN_US)
     {
         parent::__construct();
-        $this->lang = $lang;
     }
 
     /**
@@ -36,7 +31,7 @@ class NewsFetcher extends AbstractFetcher
         foreach ($articleArray as $item) {
             $article = new EsoArticle(
                 $item['content']['title']['main'],
-                'https://elderscrollsonline.com/'.$this->lang.'/news/post/'.$item['metadata']['parent_id'],
+                'https://www.elderscrollsonline.com/'.$this->lang.'/news/post/'.$item['metadata']['parent_id'],
                 new \DateTime('@'.$item['metadata']['dates']['start_date']),
                 $item['content']['images']['lead_image'],
                 $item['content']['intro']['text']
@@ -48,9 +43,6 @@ class NewsFetcher extends AbstractFetcher
         return $articles;
     }
 
-    /**
-     * @return string
-     */
     protected function getFeedUrl(): string
     {
         return 'https://www.elderscrollsonline.com/'.$this->lang.'/news/post/list';

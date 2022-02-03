@@ -2,99 +2,47 @@
 
 namespace Woeler\EsoNewsFetcher\Article;
 
-use DateTime;
 use DOMDocument;
 use DOMXPath;
 use GuzzleHttp\Client;
 
 class EsoArticle
 {
-    /**
-     * @var string
-     */
-    protected $title;
-
-    /**
-     * @var string
-     */
-    protected $link;
-
-    /**
-     * @var string
-     */
-    protected $image;
-
-    /**
-     * @var string
-     */
-    protected $description;
-
-    /**
-     * @var DateTime
-     */
-    protected $timestamp;
-
-    /**
-     * AbstractArticle constructor.
-     *
-     * @param string   $title
-     * @param string   $link
-     * @param DateTime $timestamp
-     * @param string   $image
-     * @param string   $description
-     */
-    public function __construct(string $title, string $link, DateTime $timestamp, string $image = '', string $description = '')
-    {
+    public function __construct(
+        protected string $title,
+        protected string $link,
+        protected \DateTimeInterface $timestamp,
+        protected string $image = '',
+        protected string $description = ''
+    ) {
         $this->title       = str_replace('&amp;', 'and', $title);
-        $this->link        = $link;
-        $this->image       = $image;
-        $this->description = $description;
-        $this->timestamp   = $timestamp;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @return string
-     */
     public function getLink(): string
     {
         return $this->link;
     }
 
-    /**
-     * @return string
-     */
     public function getImage(): string
     {
         return $this->image;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getTimestamp(): DateTime
+    public function getTimestamp(): \DateTimeInterface
     {
         return $this->timestamp;
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function fetchOgMetaTags(): void
     {
         $client  = new Client(['base_uri' => $this->link]);
