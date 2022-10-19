@@ -12,6 +12,7 @@ class PatchNotesFetcher extends AbstractFetcher
     public const LANG_DE      = 'de';
     public const LANG_FR      = 'fr';
     public const LANG_RU      = 'ru';
+    public const LANG_ES      = 'es';
     public const CONTEXT_LIVE = 'live';
     public const CONTEXT_PTS  = 'pts';
 
@@ -32,6 +33,10 @@ class PatchNotesFetcher extends AbstractFetcher
             self::CONTEXT_LIVE => 'https://forums.elderscrollsonline.com/ru/categories/patch-notes-r/feed.rss',
             self::CONTEXT_PTS  => 'https://forums.elderscrollsonline.com/ru/categories/%E2%80%A2%09public-test-server-russian/feed.xml',
         ],
+        self::LANG_ES => [
+            self::CONTEXT_LIVE => 'https://forums.elderscrollsonline.com/es/categories/notas-de-parche-y-revisiones/feed.rss',
+            self::CONTEXT_PTS  => 'https://forums.elderscrollsonline.com/es/categories/servidor-de-prueba-p%C3%BAblico/feed.rss',
+        ],
     ];
 
     private const ALLOWED_AUTHORS = [
@@ -40,6 +45,7 @@ class PatchNotesFetcher extends AbstractFetcher
         'ZOS_JessicaFolsom',
         'ZOS_LouisEvrard',
         'ZOS_Valeriya',
+        'ElenaMinervae',
     ];
 
     public function __construct(
@@ -89,6 +95,9 @@ class PatchNotesFetcher extends AbstractFetcher
             }
             if (self::LANG_RU === $this->lang) {
                 return false !== mb_stripos($title, 'публичного тестового сервера') && false !== mb_stripos($title, 'Описание обновления');
+            }
+            if (self::LANG_ES === $this->lang) {
+                return false !== mb_stripos($title, 'Notas del parche del servidor de pruebas');
             }
 
             return false;
