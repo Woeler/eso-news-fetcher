@@ -67,4 +67,24 @@ class PtsPatchNotesTest extends \PHPUnit\Framework\TestCase
         $this->assertNotNull($article->getDescription());
         $this->assertNotNull($article->getLink());
     }
+    
+    public function testFetchSpanish()
+    {
+        $fetcher  = new PatchNotesFetcher(PatchNotesFetcher::LANG_ES, PatchNotesFetcher::CONTEXT_PTS);
+        $articles = $fetcher->fetchAll();
+
+        if (0 === count($articles)) {
+            return;
+        }
+
+        /** @var EsoArticle $article */
+        $article = $articles[0];
+        $article->fetchOgMetaTags();
+
+        $this->assertTrue(count($articles) > 0);
+        $this->assertNotNull($article->getTitle());
+        $this->assertNotNull($article->getTimestamp());
+        $this->assertNotNull($article->getDescription());
+        $this->assertNotNull($article->getLink());
+    }
 }
