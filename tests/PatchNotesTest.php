@@ -69,7 +69,7 @@ class PatchNotesTest extends \PHPUnit\Framework\TestCase
         $this->assertNotNull($article->getDescription());
         $this->assertNotNull($article->getLink());
     }
-    
+
     public function testFetchSpanish()
     {
         $fetcher  = new PatchNotesFetcher(PatchNotesFetcher::LANG_ES);
