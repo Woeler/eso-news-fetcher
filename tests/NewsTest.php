@@ -117,7 +117,7 @@ class NewsTest extends \PHPUnit\Framework\TestCase
         $this->assertNotNull($article->getLink());
     }
 
-    public function testFetchChinese()
+    public function testFetchJapanese()
     {
         $fetcher  = new NewsFetcher(NewsFetcher::LANG_JA);
         $articles = $fetcher->fetchAll();
