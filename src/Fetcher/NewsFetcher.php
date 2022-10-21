@@ -15,6 +15,7 @@ class NewsFetcher extends AbstractFetcher
     public const LANG_RU    = 'ru';
     public const LANG_ES    = 'es';
     public const LANG_CN    = 'cn';
+    public const LANG_JA    = 'ja';
 
     public function __construct(private string $lang = self::LANG_EN_US)
     {
