@@ -27,6 +27,10 @@ class NewsFetcher extends AbstractFetcher
      */
     public function fetchAll(): array
     {
+        if ($this->lang === self::LANG_JA) {
+            return (new JapaneseNewsFetcher())->fetchAll();
+        }
+
         $articles     = [];
         $articleArray = $this->getJsonFeedAsArray();
 
