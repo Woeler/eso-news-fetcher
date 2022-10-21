@@ -100,7 +100,7 @@ class NewsTest extends \PHPUnit\Framework\TestCase
         $this->assertNotNull($article->getDescription());
         $this->assertNotNull($article->getLink());
     }
-    
+
     public function testFetchChinese()
     {
         $fetcher  = new NewsFetcher(NewsFetcher::LANG_CN);
