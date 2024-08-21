@@ -46,6 +46,7 @@ class PatchNotesFetcher extends AbstractFetcher
         'ZOS_LouisEvrard',
         'ZOS_Valeriya',
         'ElenaMinervae',
+        'ZOS_Kevin',
     ];
 
     public function __construct(
